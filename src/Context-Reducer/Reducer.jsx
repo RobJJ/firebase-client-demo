@@ -1,4 +1,4 @@
-import ClientDataService from "../Firebase/Firebase-services";
+// import ClientDataService from "../Firebase/Firebase-services";
 //
 const reducer = (state, action) => {
   if (action.type === "ADD_CLIENT") {
@@ -10,6 +10,7 @@ const reducer = (state, action) => {
         {
           ...action.payload,
           uniqueClient: state.uniqueClients + 1,
+          joined: action.payload.dateJoined,
         },
       ],
     };

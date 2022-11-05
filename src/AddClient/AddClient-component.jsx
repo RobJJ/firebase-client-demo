@@ -11,6 +11,7 @@ const AddClient = () => {
       </div>
       <div className="w-full text-center p-2 mt-5">
         <input
+          required
           className="w-3/4 p-2 rounded-lg"
           type="text"
           placeholder="Enter Client Name..."

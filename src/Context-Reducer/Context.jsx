@@ -26,9 +26,12 @@ const AppProvider = ({ children }) => {
   //
   // Methods
   const submitNewClient = async (e) => {
+    // console.log("Event: ", e);
     e.preventDefault();
-    await ClientDataService.addClient(client);
-    dispatch({ type: "ADD_CLIENT", payload: { client } });
+    const dateJoined = new Date().toISOString().slice(0, 10);
+
+    await ClientDataService.addClient({ ...client, joined: dateJoined });
+    dispatch({ type: "ADD_CLIENT", payload: { client, dateJoined } });
     setClient(clientTemplate);
   };
   return (
