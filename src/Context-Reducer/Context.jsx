@@ -1,5 +1,6 @@
 import React, { useContext, useState, useReducer } from "react";
 import reducer from "./Reducer";
+import ClientDataService from "../Firebase/Firebase-services";
 //
 const AppContext = React.createContext();
 //
@@ -24,15 +25,18 @@ const AppProvider = ({ children }) => {
   const [client, setClient] = useState(clientTemplate);
   //
   // Methods
-  const handleAddClient = (e) => {
+  const submitNewClient = async (e) => {
     e.preventDefault();
+    await ClientDataService.addClient(client);
+    dispatch({ type: "ADD_CLIENT", payload: { client } });
+    setClient(clientTemplate);
   };
   return (
     <AppContext.Provider
       value={{
         client,
         setClient,
-        handleAddClient,
+        submitNewClient,
       }}
     >
       {children}

@@ -1,5 +1,5 @@
 // Import the database that you have created
-import { db } from "../firebase-config";
+import { db } from "./Firebase-config";
 // Import functions from firestore
 import {
   collection,

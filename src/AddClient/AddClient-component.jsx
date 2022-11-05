@@ -2,10 +2,10 @@ import React from "react";
 import { useGlobalContext } from "../Context-Reducer/Context";
 //
 const AddClient = () => {
-  const { client, setClient, handleAddClient } = useGlobalContext();
+  const { client, setClient, submitNewClient } = useGlobalContext();
   //
   return (
-    <form onSubmit={handleAddClient} className="w-full h-1/2 bg-slate-400">
+    <form onSubmit={submitNewClient} className="w-full h-1/2 bg-slate-400">
       <div className="w-full text-center text-xl underline p-2 mt-5">
         <h2>Add Client</h2>
       </div>
