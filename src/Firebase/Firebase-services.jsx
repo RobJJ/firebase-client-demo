@@ -31,10 +31,10 @@ class ClientDataService {
   //     return deleteDoc(bookDoc);
   //   };
   //   //
-  //   getAllBooks = () => {
-  //     return getDocs(bookCollectionRef);
-  //   };
-  //   //
+  getAllClients = () => {
+    return getDocs(clientCollectionRef);
+  };
+  //
   //   getBook = (id) => {
   //     const bookDoc = doc(db, "books", id);
   //     return getDoc(bookDoc);

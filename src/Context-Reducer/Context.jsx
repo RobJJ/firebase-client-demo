@@ -23,6 +23,7 @@ const AppProvider = ({ children }) => {
   //   const [clientCollection, setClientCollection] = useState();
   const [state, dispatch] = useReducer(reducer, initialState);
   const [client, setClient] = useState(clientTemplate);
+  const [clients, setClients] = useState([]);
   //
   // Methods
   const submitNewClient = async (e) => {
@@ -32,14 +33,26 @@ const AppProvider = ({ children }) => {
 
     await ClientDataService.addClient({ ...client, joined: dateJoined });
     dispatch({ type: "ADD_CLIENT", payload: { client, dateJoined } });
+    getAllClients();
     setClient(clientTemplate);
   };
+  //
+  const getAllClients = async () => {
+    const data = await ClientDataService.getAllClients();
+    // clientsArr is an array of client objects that contains their properties
+    const clientsArr = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    // console.log("Client ARray from call: ", clientsArr);
+    setClients(clientsArr);
+  };
+  //
   return (
     <AppContext.Provider
       value={{
         client,
         setClient,
         submitNewClient,
+        getAllClients,
+        clients,
       }}
     >
       {children}

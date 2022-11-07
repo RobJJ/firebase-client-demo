@@ -1,9 +1,17 @@
+import { useEffect } from "react";
 import AddClient from "./AddClient/AddClient-component";
+import { useGlobalContext } from "./Context-Reducer/Context";
 import CreditClient from "./CreditClient/CreditClient.component";
 import DebitClient from "./DebitClient/DebitClient-component";
 import ListClient from "./ListClient/ListClient-component";
 
 function App() {
+  const { getAllClients } = useGlobalContext();
+  //
+  useEffect(() => {
+    getAllClients();
+  }, []);
+  //
   return (
     <div className="w-screen h-screen bg-slate-800 flex p-5 gap-1">
       {/* LEFT HAND SIDE */}
