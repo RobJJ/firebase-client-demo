@@ -5,7 +5,7 @@ const AddClient = () => {
   const { client, setClient, submitNewClient, getAllClients } =
     useGlobalContext();
   //
-  getAllClients();
+  // getAllClients();
   //
   return (
     <form onSubmit={submitNewClient} className="w-full h-1/2 bg-slate-400">

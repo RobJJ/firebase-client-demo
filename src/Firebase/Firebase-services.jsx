@@ -26,10 +26,10 @@ class ClientDataService {
   //     return updateDoc(bookDoc, updatedBook);
   //   };
   //   //
-  //   deleteBook = (id) => {
-  //     const bookDoc = doc(db, "books", id);
-  //     return deleteDoc(bookDoc);
-  //   };
+  deleteClient = (id) => {
+    const clientDoc = doc(db, "clients", id);
+    return deleteDoc(clientDoc);
+  };
   //   //
   getAllClients = () => {
     return getDocs(clientCollectionRef);

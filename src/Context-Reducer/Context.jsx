@@ -26,6 +26,7 @@ const AppProvider = ({ children }) => {
   const [clients, setClients] = useState([]);
   //
   // Methods
+  //
   const submitNewClient = async (e) => {
     // console.log("Event: ", e);
     e.preventDefault();
@@ -45,6 +46,15 @@ const AppProvider = ({ children }) => {
     setClients(clientsArr);
   };
   //
+  const handleDelete = async (id) => {
+    try {
+      await ClientDataService.deleteClient(id);
+    } catch (error) {
+      console.log("Error in handleDelete: ", error);
+    }
+    getAllClients();
+  };
+  //
   return (
     <AppContext.Provider
       value={{
@@ -53,6 +63,7 @@ const AppProvider = ({ children }) => {
         submitNewClient,
         getAllClients,
         clients,
+        handleDelete,
       }}
     >
       {children}
