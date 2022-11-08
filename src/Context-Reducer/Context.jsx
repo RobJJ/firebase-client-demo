@@ -19,11 +19,21 @@ const clientTemplate = {
   credits: [],
 };
 //
+const debitTemplate = {
+  date: "",
+  id: "",
+  amount: "",
+  sessions: 0,
+  notes: "",
+};
+//
 const AppProvider = ({ children }) => {
   //   const [clientCollection, setClientCollection] = useState();
   const [state, dispatch] = useReducer(reducer, initialState);
   const [client, setClient] = useState(clientTemplate);
   const [clients, setClients] = useState([]);
+  const [id, setId] = useState("");
+  const [debitInfo, setDebitInfo] = useState(debitTemplate);
   //
   // Methods
   //
@@ -55,15 +65,27 @@ const AppProvider = ({ children }) => {
     getAllClients();
   };
   //
+  const handleDebit = async (e) => {
+    e.preventDefault();
+    const docSnap = await ClientDataService.getClient(id);
+    console.log(docSnap.data().name);
+  };
+  //
   return (
     <AppContext.Provider
       value={{
+        ...state,
         client,
         setClient,
         submitNewClient,
         getAllClients,
         clients,
         handleDelete,
+        id,
+        setId,
+        handleDebit,
+        debitInfo,
+        setDebitInfo,
       }}
     >
       {children}

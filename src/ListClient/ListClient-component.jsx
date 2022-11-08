@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useGlobalContext } from "../Context-Reducer/Context";
 //
 const ListClient = () => {
-  const { clients, handleDelete } = useGlobalContext();
+  const { clients, handleDelete, setId } = useGlobalContext();
   //
   //
   return (
@@ -17,10 +17,15 @@ const ListClient = () => {
                 className="flex w-full bg-white justify-around p-2"
               >
                 <h2>{client.name}</h2>
-                <h2>{client.joined}</h2>
+
                 <div className="bg-red-300">
                   <button onClick={() => handleDelete(client.id)} type="button">
                     Delete
+                  </button>
+                </div>
+                <div className="bg-green-300">
+                  <button onClick={() => setId(client.id)} type="button">
+                    Debit
                   </button>
                 </div>
               </div>

@@ -20,11 +20,11 @@ class ClientDataService {
   addClient = (newClient) => {
     return addDoc(clientCollectionRef, newClient);
   };
-  //   //
-  //   updateBook = (id, updatedBook) => {
-  //     const bookDoc = doc(db, "books", id);
-  //     return updateDoc(bookDoc, updatedBook);
-  //   };
+  // This method updates the doc @ id with a new object
+  updateClient = (id, newData) => {
+    const clientDoc = doc(db, "clients", id);
+    return updateDoc(clientDoc, newData);
+  };
   //   //
   deleteClient = (id) => {
     const clientDoc = doc(db, "clients", id);
@@ -34,11 +34,11 @@ class ClientDataService {
   getAllClients = () => {
     return getDocs(clientCollectionRef);
   };
-  //
-  //   getBook = (id) => {
-  //     const bookDoc = doc(db, "books", id);
-  //     return getDoc(bookDoc);
-  //   };
+  // This gets you the client at id - its passed from the clientList
+  getClient = (id) => {
+    const clientDoc = doc(db, "clients", id);
+    return getDoc(clientDoc);
+  };
 }
 
 export default new ClientDataService();
