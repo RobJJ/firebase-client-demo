@@ -1,6 +1,7 @@
 import React, { useContext, useState, useReducer } from "react";
 import reducer from "./Reducer";
 import ClientDataService from "../Firebase/Firebase-services";
+import { v4 as uuidv4 } from "uuid";
 //
 const AppContext = React.createContext();
 //
@@ -67,8 +68,15 @@ const AppProvider = ({ children }) => {
   //
   const handleDebit = async (e) => {
     e.preventDefault();
+    console.log(debitInfo);
     const docSnap = await ClientDataService.getClient(id);
-    console.log(docSnap.data().name);
+    console.log(docSnap.data());
+    const updatedClient = {
+      ...docSnap.data(),
+      debits: [...docSnap.data().debits, { ...debitInfo, id: uuidv4() }],
+    };
+    console.log(updatedClient);
+    await ClientDataService.updateClient(id, updatedClient);
   };
   //
   return (

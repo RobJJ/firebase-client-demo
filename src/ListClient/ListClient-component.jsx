@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
 import { useGlobalContext } from "../Context-Reducer/Context";
+import DebitClient from "../DebitClient/DebitClient-component";
+import { v4 as uuidv4 } from "uuid";
+
 //
 const ListClient = () => {
-  const { clients, handleDelete, setId } = useGlobalContext();
+  const { clients, handleDelete, setId, setDebitInfo, debitInfo } =
+    useGlobalContext();
   //
   //
   return (
@@ -24,7 +28,13 @@ const ListClient = () => {
                   </button>
                 </div>
                 <div className="bg-green-300">
-                  <button onClick={() => setId(client.id)} type="button">
+                  <button
+                    onClick={() => {
+                      // setDebitInfo({ ...setDebitInfo, id: uuidv4() });
+                      setId(client.id);
+                    }}
+                    type="button"
+                  >
                     Debit
                   </button>
                 </div>
