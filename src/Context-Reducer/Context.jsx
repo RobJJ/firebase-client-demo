@@ -77,6 +77,8 @@ const AppProvider = ({ children }) => {
     };
     console.log(updatedClient);
     await ClientDataService.updateClient(id, updatedClient);
+    setId("");
+    setDebitInfo(debitTemplate);
   };
   //
   return (
