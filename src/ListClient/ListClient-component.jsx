@@ -5,8 +5,14 @@ import { v4 as uuidv4 } from "uuid";
 
 //
 const ListClient = () => {
-  const { clients, handleDelete, setId, setDebitInfo, debitInfo } =
-    useGlobalContext();
+  const {
+    clients,
+    handleDelete,
+    setId,
+    setDebitInfo,
+    debitInfo,
+    setEditClient,
+  } = useGlobalContext();
   //
   //
   return (
@@ -31,6 +37,7 @@ const ListClient = () => {
                   <button
                     onClick={() => {
                       // setDebitInfo({ ...setDebitInfo, id: uuidv4() });
+                      setEditClient({ ...client });
                       setId(client.id);
                     }}
                     type="button"

@@ -35,6 +35,7 @@ const DebitClient = () => {
             className="w-full h-full flex flex-col p-2 bg-blue-200 gap-2"
           >
             <input
+              required
               type="date"
               className=""
               value={debitInfo.date}
@@ -43,6 +44,7 @@ const DebitClient = () => {
               }
             />
             <input
+              required
               type="text"
               placeholder="Amount..."
               value={debitInfo.amount}
@@ -51,6 +53,7 @@ const DebitClient = () => {
               }
             />
             <input
+              required
               type="number"
               value={debitInfo.sessions}
               onChange={(e) =>

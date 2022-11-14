@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import AddClient from "./AddClient/AddClient-component";
 import { useGlobalContext } from "./Context-Reducer/Context";
-import CreditClient from "./CreditClient/CreditClient.component";
+import ReceiptList from "./ReceiptList/ReceiptList.component";
 import DebitClient from "./DebitClient/DebitClient-component";
 import ListClient from "./ListClient/ListClient-component";
 
@@ -22,7 +22,7 @@ function App() {
       {/* RIGHT HAND SIDE */}
       <div className="w-1/2 h-full bg-white flex flex-col p-2 gap-2">
         <DebitClient />
-        <CreditClient />
+        <ReceiptList />
       </div>
     </div>
   );

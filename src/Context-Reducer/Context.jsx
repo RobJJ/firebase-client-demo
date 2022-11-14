@@ -34,6 +34,7 @@ const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [client, setClient] = useState(clientTemplate);
   const [clients, setClients] = useState([]);
+  const [editClient, setEditClient] = useState({});
   const [id, setId] = useState("");
   const [debitInfo, setDebitInfo] = useState(debitTemplate);
   //
@@ -71,17 +72,24 @@ const AppProvider = ({ children }) => {
   //
   const handleDebit = async (e) => {
     e.preventDefault();
+    // Old way of handling the debit
+    // const docSnap = await ClientDataService.getClient(id);
     //
-    const docSnap = await ClientDataService.getClient(id);
-    //
+    // const updatedClient = {
+    //   ...docSnap.data(),
+    //   debits: [...docSnap.data().debits, { ...debitInfo, id: uuidv4() }],
+    // };
+    // New way
     const updatedClient = {
-      ...docSnap.data(),
-      debits: [...docSnap.data().debits, { ...debitInfo, id: uuidv4() }],
+      ...editClient,
+      debits: [...editClient.debits, { ...debitInfo, id: uuidv4() }],
     };
     //
     await ClientDataService.updateClient(id, updatedClient);
+    const docSnap = await ClientDataService.getClient(id);
+    setEditClient({ ...docSnap.data() });
     //
-    setId("");
+    // setId("");
     setDebitInfo(debitTemplate);
   };
   //
@@ -97,6 +105,8 @@ const AppProvider = ({ children }) => {
         handleDelete,
         id,
         setId,
+        editClient,
+        setEditClient,
         handleDebit,
         debitInfo,
         setDebitInfo,
