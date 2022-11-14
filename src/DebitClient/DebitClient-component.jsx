@@ -1,11 +1,27 @@
 import React, { useEffect } from "react";
 import { useGlobalContext } from "../Context-Reducer/Context";
+import ClientDataService from "../Firebase/Firebase-services";
+
 //
 const DebitClient = () => {
   const { id, setId, debitInfo, setDebitInfo, handleDebit } =
     useGlobalContext();
+
   //
-  // useEffect(() => {}, [id]);
+  useEffect(() => {
+    // Guard clause for empty id on start
+    if (!id) return;
+    async function getClient() {
+      try {
+        const docSnap = await ClientDataService.getClient(id);
+        const currentClientName = docSnap.data().name;
+        // console.log(docSnap.data());
+      } catch (error) {
+        console.log("Bro, there was an error: ", error);
+      }
+    }
+    getClient();
+  }, [id]);
   //
 
   return (

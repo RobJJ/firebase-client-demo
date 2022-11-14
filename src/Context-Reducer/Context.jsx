@@ -18,6 +18,7 @@ const clientTemplate = {
   joined: "",
   debits: [],
   credits: [],
+  notes: [],
 };
 //
 const debitTemplate = {
@@ -51,6 +52,8 @@ const AppProvider = ({ children }) => {
   //
   const getAllClients = async () => {
     const data = await ClientDataService.getAllClients();
+    // This log returns the length of the client collection...(on add or delete)
+    // console.log(data.docs.length);
     // clientsArr is an array of client objects that contains their properties
     const clientsArr = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
     // console.log("Client ARray from call: ", clientsArr);
@@ -68,15 +71,16 @@ const AppProvider = ({ children }) => {
   //
   const handleDebit = async (e) => {
     e.preventDefault();
-    console.log(debitInfo);
+    //
     const docSnap = await ClientDataService.getClient(id);
-    console.log(docSnap.data());
+    //
     const updatedClient = {
       ...docSnap.data(),
       debits: [...docSnap.data().debits, { ...debitInfo, id: uuidv4() }],
     };
-    console.log(updatedClient);
+    //
     await ClientDataService.updateClient(id, updatedClient);
+    //
     setId("");
     setDebitInfo(debitTemplate);
   };
