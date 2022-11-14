@@ -2,7 +2,8 @@ import React from "react";
 import { useGlobalContext } from "../Context-Reducer/Context";
 //
 const ReceiptList = () => {
-  const { editClient, id } = useGlobalContext();
+  const { editClient, id, viewNote, setViewNote } = useGlobalContext();
+
   return (
     <div className="w-full h-1/2 bg-slate-400">
       {!id && <h2>RECEIPT LIST</h2>}
@@ -14,13 +15,15 @@ const ReceiptList = () => {
           <div className="flex flex-col gap-1  h-full w-full p-2">
             {editClient.debits.map((debit) => {
               return (
-                <div
-                  key={debit.id}
-                  className="flex justify-around bg-white rounded-lg"
-                >
-                  <div>{debit.date}</div>
-                  <div>{debit.amount}</div>
-                  <div>{debit.sessions}</div>
+                <div key={debit.id} className="flex-col bg-white rounded-lg">
+                  <div className="flex justify-around">
+                    <div>
+                      {debit.notes ? <button type="button">Y</button> : "n"}
+                    </div>
+                    <div>{debit.date}</div>
+                    <div>{debit.amount}</div>
+                    <div>{debit.sessions}</div>
+                  </div>
                 </div>
               );
             })}

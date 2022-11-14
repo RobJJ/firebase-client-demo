@@ -37,7 +37,8 @@ const AppProvider = ({ children }) => {
   const [editClient, setEditClient] = useState({});
   const [id, setId] = useState("");
   const [debitInfo, setDebitInfo] = useState(debitTemplate);
-  //
+  // try
+  const [viewNote, setViewNote] = useState(false);
   // Methods
   //
   const submitNewClient = async (e) => {
@@ -110,6 +111,8 @@ const AppProvider = ({ children }) => {
         handleDebit,
         debitInfo,
         setDebitInfo,
+        viewNote,
+        setViewNote,
       }}
     >
       {children}
