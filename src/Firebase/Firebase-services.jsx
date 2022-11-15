@@ -5,6 +5,7 @@ import {
   collection,
   getDocs,
   getDoc,
+  setDoc,
   addDoc,
   updateDoc,
   deleteDoc,
@@ -39,6 +40,31 @@ class ClientDataService {
     const clientDoc = doc(db, "clients", id);
     return getDoc(clientDoc);
   };
+  //
+  // ************************
+  // Creating User Based methods here,, should seperate this into its own class ... try here first. Do they share any info? besides the db...
+  createUserDocFromAuth = async (userAuth) => {
+    const userDocRef = doc(db, "users", userAuth.uid);
+    //
+    const userSnapShot = await getDoc(userDocRef);
+    //
+    if (!userSnapShot.exists()) {
+      const { displayName, email } = userAuth;
+      const createdAt = new Date();
+
+      try {
+        await setDoc(userDocRef, {
+          displayName,
+          email,
+          createdAt,
+        });
+      } catch (error) {
+        console.log("Error creating the user! : ", error.message);
+      }
+    }
+    return userDocRef;
+  };
 }
+//
 
 export default new ClientDataService();
