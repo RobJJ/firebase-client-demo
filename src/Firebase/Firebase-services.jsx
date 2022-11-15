@@ -11,7 +11,7 @@ import {
   doc,
 } from "firebase/firestore";
 //
-// This is a reference to the 'books' collection in your firestore database
+// This is a reference to the 'clients' collection in your firestore database
 const clientCollectionRef = collection(db, "clients");
 //
 // Creating a new class here, to share methods
