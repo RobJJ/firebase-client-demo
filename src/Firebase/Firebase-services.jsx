@@ -48,6 +48,7 @@ class ClientDataService {
     //
     const userSnapShot = await getDoc(userDocRef);
     //
+    // Does the user exists? If not lets create one for DB
     if (!userSnapShot.exists()) {
       const { displayName, email } = userAuth;
       const createdAt = new Date();
@@ -65,7 +66,13 @@ class ClientDataService {
         console.log("Error creating the user! : ", error.message);
       }
     }
+    // User does exist? Then just return the userDocRef from DB
     return userDocRef;
+  };
+  //
+  getUser = (uid) => {
+    const userDoc = doc(db, "users", uid);
+    return getDoc(userDoc);
   };
 }
 //

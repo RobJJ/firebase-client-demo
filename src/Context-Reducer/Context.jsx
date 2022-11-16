@@ -1,7 +1,8 @@
-import React, { useContext, useState, useReducer } from "react";
+import React, { useContext, useState, useReducer, useEffect } from "react";
 import reducer from "./Reducer";
 import ClientDataService from "../Firebase/Firebase-services";
 import { v4 as uuidv4 } from "uuid";
+import { onAuthStateChangedListener } from "../Firebase/Firebase-config";
 //
 const AppContext = React.createContext();
 //
@@ -37,8 +38,20 @@ const AppProvider = ({ children }) => {
   const [editClient, setEditClient] = useState({});
   const [id, setId] = useState("");
   const [debitInfo, setDebitInfo] = useState(debitTemplate);
+  const [currentUser, setCurrentUser] = useState(null);
   // try
   const [viewNote, setViewNote] = useState(false);
+  //
+  useEffect(() => {
+    // Passing the callback to the listener - calls unsub on unmount - cleans up the function on the listener
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      if (user) {
+        ClientDataService.createUserDocFromAuth(user);
+      }
+      setCurrentUser(user);
+    });
+    return unsubscribe;
+  }, []);
   // Methods
   //
   const submitNewClient = async (e) => {
@@ -113,6 +126,8 @@ const AppProvider = ({ children }) => {
         setDebitInfo,
         viewNote,
         setViewNote,
+        currentUser,
+        setCurrentUser,
       }}
     >
       {children}

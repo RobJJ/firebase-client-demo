@@ -3,9 +3,10 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import {
   getAuth,
-  signInWithRedirect,
   signInWithPopup,
   GoogleAuthProvider,
+  signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 //
 // Your web app's Firebase configuration
@@ -32,3 +33,10 @@ provider.setCustomParameters({
 });
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+//
+export const signOutUser = async () => {
+  await signOut(auth);
+};
+//
+export const onAuthStateChangedListener = (callback) =>
+  onAuthStateChanged(auth, callback);
