@@ -51,12 +51,15 @@ class ClientDataService {
     if (!userSnapShot.exists()) {
       const { displayName, email } = userAuth;
       const createdAt = new Date();
-
+      // Create this object to contain the basic info, which in turn seperates it from the clients object. Singular field vs spread out
+      const userInfo = {
+        displayName,
+        email,
+        createdAt,
+      };
       try {
         await setDoc(userDocRef, {
-          displayName,
-          email,
-          createdAt,
+          userInfo,
         });
       } catch (error) {
         console.log("Error creating the user! : ", error.message);
