@@ -47,13 +47,17 @@ const AppProvider = ({ children }) => {
     const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) {
         ClientDataService.createUserDocFromAuth(user);
+        getAllUsersClients(user.uid);
+      } else {
+        setClients([]);
       }
       setCurrentUser(user);
     });
     return unsubscribe;
   }, []);
   // Methods
-  //
+  ////////////////////////////////////////////////
+  // OLD WAY
   const submitNewClient = async (e) => {
     // console.log("Event: ", e);
     e.preventDefault();
@@ -64,14 +68,18 @@ const AppProvider = ({ children }) => {
     getAllClients();
     setClient(clientTemplate);
   };
-  //
+  // NEW WAY -
   const submitNewClientToUser = async (e) => {
     e.preventDefault();
+    if (!currentUser) return;
     const currentUserID = currentUser.uid;
     // console.log(currentUserID);
     await ClientDataService.addClientToUser(currentUserID, client);
+    getAllUsersClients(currentUserID);
+    setClient(clientTemplate);
   };
-  //
+  //////////////////////////////////////////////////
+  // OLD WAY
   const getAllClients = async () => {
     const data = await ClientDataService.getAllClients();
     // This log returns the length of the client collection...(on add or delete)
@@ -81,7 +89,16 @@ const AppProvider = ({ children }) => {
     // console.log("Client ARray from call: ", clientsArr);
     setClients(clientsArr);
   };
-  //
+  // NEW WAY - needs to be called in correct moments
+  // First: When a user logs in
+  // Second: When a user adds a client
+  // Third: When a user logs out - setClients([])
+  const getAllUsersClients = async (userId) => {
+    const data = await ClientDataService.getAllUsersClients(userId);
+    const clientsArr = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    setClients(clientsArr);
+  };
+  ////////////////////////////////////////////////////
   const handleDelete = async (id) => {
     try {
       await ClientDataService.deleteClient(id);

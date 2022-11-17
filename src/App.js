@@ -9,9 +9,9 @@ import SignIn from "./SignIn/SignIn.component";
 function App() {
   const { getAllClients } = useGlobalContext();
   //
-  useEffect(() => {
-    getAllClients();
-  }, []);
+  // useEffect(() => {
+  //   getAllClients();
+  // }, []);
   //
   return (
     <div className="w-screen h-screen bg-slate-800 flex p-5 gap-1">

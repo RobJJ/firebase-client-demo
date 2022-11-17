@@ -8,7 +8,7 @@ import ClientDataService from "../Firebase/Firebase-services";
 //
 const SignIn = () => {
   //
-  const { currentUser } = useGlobalContext();
+  const { currentUser, setClients } = useGlobalContext();
   //
   const logGoogleUser = async () => {
     await signInWithGooglePopup();
@@ -23,7 +23,7 @@ const SignIn = () => {
   //
   const handleLogOut = async () => {
     // Sign out the user from firestore
-    await signOutUser();
+    await signOutUser().then(console.log("User logged out"));
   };
   //
   //

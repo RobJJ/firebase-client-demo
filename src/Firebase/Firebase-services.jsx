@@ -14,7 +14,7 @@ import {
 //
 // This is a reference to the 'clients' collection in your firestore database
 const clientCollectionRef = collection(db, "clients");
-const userCollectionRef = collection(db, "users");
+// const userCollectionRef = collection(db, "users");
 //
 // Creating a new class here, to share methods
 class ClientDataService {
@@ -25,7 +25,7 @@ class ClientDataService {
     // addDoc - adds the doc to the collection with a new UID. The data passed to it will be the data at that UID in the collections
     return addDoc(clientCollectionRef, newClient);
   };
-  // I want this to target the correct user, and then add a client to it
+  // I want this to target the correct user, and then add a client to it. IF the clients collection doesnt exist - create it!
   addClientToUser = async (userUID, newClient) => {
     // First: Get the docRef for the current user
     const userDocRef = doc(db, "users", userUID);
@@ -46,10 +46,19 @@ class ClientDataService {
     const clientDoc = doc(db, "clients", id);
     return deleteDoc(clientDoc);
   };
-  //   //
+  ///////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////
   getAllClients = () => {
     return getDocs(clientCollectionRef);
   };
+  //
+  getAllUsersClients = (userUID) => {
+    const userDocRef = doc(db, "users", userUID);
+    const userClientsCollectionRef = collection(userDocRef, "clients");
+    return getDocs(userClientsCollectionRef);
+  };
+  ///////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////
   // This gets you the client at id - its passed from the clientList
   getClient = (id) => {
     const clientDoc = doc(db, "clients", id);
