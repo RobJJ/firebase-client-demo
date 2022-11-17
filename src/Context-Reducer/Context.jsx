@@ -65,6 +65,13 @@ const AppProvider = ({ children }) => {
     setClient(clientTemplate);
   };
   //
+  const submitNewClientToUser = async (e) => {
+    e.preventDefault();
+    const currentUserID = currentUser.uid;
+    // console.log(currentUserID);
+    await ClientDataService.addClientToUser(currentUserID, client);
+  };
+  //
   const getAllClients = async () => {
     const data = await ClientDataService.getAllClients();
     // This log returns the length of the client collection...(on add or delete)
@@ -128,6 +135,7 @@ const AppProvider = ({ children }) => {
         setViewNote,
         currentUser,
         setCurrentUser,
+        submitNewClientToUser,
       }}
     >
       {children}
