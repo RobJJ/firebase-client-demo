@@ -99,15 +99,22 @@ const AppProvider = ({ children }) => {
     setClients(clientsArr);
   };
   ////////////////////////////////////////////////////
-  const handleDelete = async (id) => {
-    try {
-      await ClientDataService.deleteClient(id);
-    } catch (error) {
-      console.log("Error in handleDelete: ", error);
-    }
-    getAllClients();
+  ////////////////////////////////////////////////////
+  const handleDelete = async (clientID) => {
+    // The correct client id is being logged
+    console.log(id);
+    const currentUserID = currentUser.uid;
+    await ClientDataService.deleteClientFromUser(currentUserID, clientID);
+    getAllUsersClients(currentUserID);
+    // try {
+    //   await ClientDataService.deleteClient(id);
+    // } catch (error) {
+    //   console.log("Error in handleDelete: ", error);
+    // }
+    // getAllClients();
   };
-  //
+  //////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////
   const handleDebit = async (e) => {
     e.preventDefault();
     // Old way of handling the debit

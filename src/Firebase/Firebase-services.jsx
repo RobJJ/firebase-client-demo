@@ -41,10 +41,19 @@ class ClientDataService {
     const clientDoc = doc(db, "clients", id);
     return updateDoc(clientDoc, newData);
   };
-  //   //
+  ///////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////
   deleteClient = (id) => {
     const clientDoc = doc(db, "clients", id);
     return deleteDoc(clientDoc);
+  };
+  deleteClientFromUser = (userUID, clientID) => {
+    // Find correct user
+    const userDocRef = doc(db, "users", userUID);
+    // Find correct user-client
+    const clientDocRef = doc(userDocRef, "clients", clientID);
+    // Delete this document from clients collection
+    return deleteDoc(clientDocRef);
   };
   ///////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////

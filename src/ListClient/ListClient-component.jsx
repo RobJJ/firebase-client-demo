@@ -12,6 +12,7 @@ const ListClient = () => {
     setDebitInfo,
     debitInfo,
     setEditClient,
+    currentUser,
   } = useGlobalContext();
   //
   //
