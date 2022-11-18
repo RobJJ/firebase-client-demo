@@ -4,24 +4,24 @@ import ClientDataService from "../Firebase/Firebase-services";
 
 //
 const DebitClient = () => {
-  const { id, setId, debitInfo, setDebitInfo, handleDebit } =
+  const { id, setId, debitInfo, setDebitInfo, handleDebit, editClient } =
     useGlobalContext();
 
   //
-  useEffect(() => {
-    // Guard clause for empty id on start
-    if (!id) return;
-    async function getClient() {
-      try {
-        const docSnap = await ClientDataService.getClient(id);
-        const currentClientName = docSnap.data().name;
-        // console.log(docSnap.data());
-      } catch (error) {
-        console.log("Bro, there was an error: ", error);
-      }
-    }
-    getClient();
-  }, [id]);
+  // useEffect(() => {
+  //   // Guard clause for empty id on start
+  //   if (!id) return;
+  //   async function getClient() {
+  //     try {
+  //       const docSnap = await ClientDataService.getClient(id);
+  //       const currentClientName = docSnap.data().name;
+  //       // console.log(docSnap.data());
+  //     } catch (error) {
+  //       console.log("Bro, there was an error: ", error);
+  //     }
+  //   }
+  //   getClient();
+  // }, [id]);
   //
 
   return (
@@ -29,7 +29,7 @@ const DebitClient = () => {
       {!id && <h2>Debit your client here</h2>}
       {id && (
         <div className="flex flex-col h-full w-full">
-          <h2 className="text-center underline">Client Name</h2>
+          <h2 className="text-center underline">{editClient.name}</h2>
           <form
             onSubmit={handleDebit}
             className="w-full h-full flex flex-col p-2 bg-blue-200 gap-2"

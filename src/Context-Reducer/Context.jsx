@@ -117,26 +117,38 @@ const AppProvider = ({ children }) => {
   ////////////////////////////////////////////////////
   const handleDebit = async (e) => {
     e.preventDefault();
-    // Old way of handling the debit
-    // const docSnap = await ClientDataService.getClient(id);
-    //
-    // const updatedClient = {
-    //   ...docSnap.data(),
-    //   debits: [...docSnap.data().debits, { ...debitInfo, id: uuidv4() }],
-    // };
-    // New way
+    // Create the new object containing newData debit
     const updatedClient = {
       ...editClient,
       debits: [...editClient.debits, { ...debitInfo, id: uuidv4() }],
     };
-    //
-    await ClientDataService.updateClient(id, updatedClient);
-    const docSnap = await ClientDataService.getClient(id);
+    // Updated the client by calling method
+    await ClientDataService.updateClientOfUser(
+      currentUser.uid,
+      id,
+      updatedClient
+    );
+    // Updated editClient State with fetched data (new data included)
+    const docSnap = await ClientDataService.getClientUser(currentUser.uid, id);
     setEditClient({ ...docSnap.data() });
-    //
-    // setId("");
+    // Set debitInfo back to empty template
     setDebitInfo(debitTemplate);
+
+    //   // Old approach for just clients
+    //   // Create new object that contains new data
+    //   const updatedClient = {
+    //     ...editClient,
+    //     debits: [...editClient.debits, { ...debitInfo, id: uuidv4() }],
+    //   };
+    //   //
+    //   await ClientDataService.updateClient(id, updatedClient);
+    //   const docSnap = await ClientDataService.getClient(id);
+    //   setEditClient({ ...docSnap.data() });
+    //   //
+    //   // setId("");
+    //   setDebitInfo(debitTemplate);
   };
+
   //
   return (
     <AppContext.Provider

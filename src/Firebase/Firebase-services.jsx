@@ -35,11 +35,20 @@ class ClientDataService {
     return addDoc(userClientsCollectionRef, newClient);
   };
   ///////////////////////////////////////////////////////////////
-  ///////////////////////////////////////////////////////////////
+  /////////////////////////DEBIT//////////////////////////////
   // This method updates the doc @ id with a new object
   updateClient = (id, newData) => {
     const clientDoc = doc(db, "clients", id);
     return updateDoc(clientDoc, newData);
+  };
+  //
+  updateClientOfUser = (userUID, clientID, newData) => {
+    // Get the current user ref
+    const userDocRef = doc(db, "users", userUID);
+    // Get the current user-client ref
+    const clientDocRef = doc(userDocRef, "clients", clientID);
+    // Update the user-client will the new data
+    return updateDoc(clientDocRef, newData);
   };
   ///////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////
@@ -73,6 +82,11 @@ class ClientDataService {
     const clientDoc = doc(db, "clients", id);
     // getDoc() is more of a getter
     return getDoc(clientDoc);
+  };
+  getClientUser = (userID, clientID) => {
+    const userDocRef = doc(db, "users", userID);
+    const clientDocRef = doc(userDocRef, "clients", clientID);
+    return getDoc(clientDocRef);
   };
   //
   // ************************
